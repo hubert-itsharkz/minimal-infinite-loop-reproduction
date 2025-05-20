@@ -7,7 +7,9 @@ import ConnectButton from "./ConnectButton";
 import Transfer from "./Transfer";
 
 export default function Home() {
-  const [Tezos] = useState(new TezosToolkit("https://rpc.sandbox.jstz.info"));
+  const [Tezos] = useState(
+    new TezosToolkit("https://ghostnet.tezos.ecadinfra.com"),
+  );
   const [wallet, setWallet] = useState<BeaconWallet | null>(null);
   const [userAddress, setUserAddress] = useState<string | null>(null);
 
@@ -24,6 +26,7 @@ export default function Home() {
                 wallet={wallet}
               />
             );
+
           default:
             return <Transfer Tezos={Tezos} />;
         }

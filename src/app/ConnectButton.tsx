@@ -18,7 +18,12 @@ export default function ConnectButton({
 }: ButtonProps) {
   async function connectWallet() {
     try {
-      await wallet!.requestPermissions();
+      await wallet!.requestPermissions({
+        network: {
+          type: NetworkType.GHOSTNET,
+          rpcUrl: "https://ghostnet.tezos.ecadinfra.com",
+        },
+      });
 
       const userAddress = await wallet!.getPKH();
       setUserAddress(userAddress);
@@ -29,14 +34,10 @@ export default function ConnectButton({
 
   useEffect(() => {
     const wallet = new BeaconWallet({
-      name: "Jstz Bridge",
+      name: "My dApp",
+      preferredNetwork: NetworkType.GHOSTNET,
       disableDefaultEvents: false,
       enableMetrics: true,
-      network: {
-        type: NetworkType.CUSTOM,
-        name: "Octez GCP",
-        rpcUrl: "https://rpc.sandbox.jstz.info",
-      },
     });
 
     Tezos.setWalletProvider(wallet);
